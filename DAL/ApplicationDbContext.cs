@@ -24,6 +24,7 @@ namespace DAL
         {
             var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             optionsBuilder.UseSqlite($"Data Source={Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "project.db")}");
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
