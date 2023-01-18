@@ -30,7 +30,7 @@ namespace HospitalProject
             var host = CreateHostBuilder().Build();
             ServiceProvider = host.Services;
 
-            Application.Run(ServiceProvider.GetRequiredService<Form1>());
+            Application.Run(ServiceProvider.GetRequiredService<Form2>());
         }
 
         public static IServiceProvider ServiceProvider { get; private set; }
@@ -52,6 +52,8 @@ namespace HospitalProject
                     services.AddTransient<IValidator<DiseasePatientUpdateDto>, DiseasePatientUpdateDtoValidator>();
                     services.AddTransient<IValidator<AppointmentCreateDto>, AppointmentCreateDtoValidator>();
                     services.AddTransient<IValidator<AppointmentUpdateDto>, AppointmentUpdateDtoValidator>();
+                    services.AddTransient<IValidator<AppointmentNoteCreateDto>, AppointmentNoteCreateDtoValidator>();
+                    services.AddTransient<IValidator<AppointmentNoteUpdateDto>, AppointmentNoteUpdateDtoValidator>();
                     services.AddTransient<IValidator<AppointmentIsCancelUpdateDto>, AppointmentIsCancelUpdateDtoValidator>();
 
 
@@ -60,6 +62,9 @@ namespace HospitalProject
                     services.AddTransient<IDiseaseDoctorService, DiseaseDoctorService>();
                     services.AddTransient<IDiseasePatientService, DiseasePatientService>();
                     services.AddTransient<IAppointmentService, AppointmentService>();
+                    services.AddTransient<IAppointmentNoteService, AppointmentNoteService>();
+                    services.AddTransient<IMailService, MailService>();
+                    services.AddTransient<IPdfService, PdfService>();
 
                     var config = new MapperConfiguration(cfg =>
                     {
@@ -69,7 +74,8 @@ namespace HospitalProject
                     var mapper = config.CreateMapper();
 
                     services.AddSingleton(mapper);
-                    services.AddTransient<Form1>();
+                    services.AddScoped<Form1>();
+                    services.AddScoped<Form2>();
 
 
                 });

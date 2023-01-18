@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BL.IServices;
-using DAL.Migrations;
 using DAL.UnitOfWorks;
 using DTOs;
 using FluentValidation;

@@ -66,6 +66,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.lblSectretary = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.formsPlot2 = new ScottPlot.FormsPlot();
             this.formsPlot1 = new ScottPlot.FormsPlot();
             this.tabPersonel = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
@@ -124,10 +125,13 @@
             this.lblAppointmentPatientNameSurname = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.cbAppointmentIsActive = new MaterialSkin.Controls.MaterialCheckbox();
+            this.tableLayoutPanel28 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnPdfCreate = new MaterialSkin.Controls.MaterialButton();
+            this.btnSendMail = new MaterialSkin.Controls.MaterialButton();
             this.tableLayoutPanel21 = new System.Windows.Forms.TableLayoutPanel();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             this.panelDoctorThinks = new System.Windows.Forms.Panel();
-            this.materialMultiLineTextBox1 = new MaterialSkin.Controls.MaterialMultiLineTextBox();
+            this.txtNote = new MaterialSkin.Controls.MaterialMultiLineTextBox();
             this.materialListView3 = new MaterialSkin.Controls.MaterialListView();
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
@@ -163,7 +167,6 @@
             this.tableLayoutPanel22 = new System.Windows.Forms.TableLayoutPanel();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.formsPlot2 = new ScottPlot.FormsPlot();
             this.materialTabControl1.SuspendLayout();
             this.tabDashboard.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -194,6 +197,7 @@
             this.panel2.SuspendLayout();
             this.tableLayoutPanel17.SuspendLayout();
             this.tableLayoutPanel20.SuspendLayout();
+            this.tableLayoutPanel28.SuspendLayout();
             this.tableLayoutPanel21.SuspendLayout();
             this.panelDoctorThinks.SuspendLayout();
             this.tableLayoutPanel19.SuspendLayout();
@@ -717,6 +721,15 @@
             this.tableLayoutPanel5.Size = new System.Drawing.Size(1613, 380);
             this.tableLayoutPanel5.TabIndex = 2;
             // 
+            // formsPlot2
+            // 
+            this.formsPlot2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.formsPlot2.Location = new System.Drawing.Point(813, 6);
+            this.formsPlot2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.formsPlot2.Name = "formsPlot2";
+            this.formsPlot2.Size = new System.Drawing.Size(793, 368);
+            this.formsPlot2.TabIndex = 1;
+            // 
             // formsPlot1
             // 
             this.formsPlot1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1065,6 +1078,7 @@
             this.sfCalendar1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.sfCalendar1.MinimumSize = new System.Drawing.Size(350, 350);
             this.sfCalendar1.Name = "sfCalendar1";
+            this.sfCalendar1.SelectedDate = new System.DateTime(2023, 1, 16, 0, 0, 0, 0);
             this.sfCalendar1.Size = new System.Drawing.Size(392, 350);
             this.sfCalendar1.TabIndex = 1;
             this.sfCalendar1.Text = "sfCalendar1";
@@ -1485,6 +1499,7 @@
             this.tableLayoutPanel20.Controls.Add(this.lblAppointmentPatientNameSurname, 1, 0);
             this.tableLayoutPanel20.Controls.Add(this.materialLabel1, 0, 0);
             this.tableLayoutPanel20.Controls.Add(this.cbAppointmentIsActive, 0, 4);
+            this.tableLayoutPanel20.Controls.Add(this.tableLayoutPanel28, 1, 4);
             this.tableLayoutPanel20.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel20.Location = new System.Drawing.Point(4, 5);
             this.tableLayoutPanel20.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1622,6 +1637,63 @@
             this.cbAppointmentIsActive.Text = "Aktif Randevu";
             this.cbAppointmentIsActive.UseVisualStyleBackColor = true;
             // 
+            // tableLayoutPanel28
+            // 
+            this.tableLayoutPanel28.ColumnCount = 2;
+            this.tableLayoutPanel28.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel28.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel28.Controls.Add(this.btnPdfCreate, 0, 0);
+            this.tableLayoutPanel28.Controls.Add(this.btnSendMail, 1, 0);
+            this.tableLayoutPanel28.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel28.Location = new System.Drawing.Point(255, 167);
+            this.tableLayoutPanel28.Name = "tableLayoutPanel28";
+            this.tableLayoutPanel28.RowCount = 1;
+            this.tableLayoutPanel28.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel28.Size = new System.Drawing.Size(544, 35);
+            this.tableLayoutPanel28.TabIndex = 9;
+            // 
+            // btnPdfCreate
+            // 
+            this.btnPdfCreate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnPdfCreate.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnPdfCreate.Depth = 0;
+            this.btnPdfCreate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPdfCreate.HighEmphasis = true;
+            this.btnPdfCreate.Icon = null;
+            this.btnPdfCreate.Location = new System.Drawing.Point(4, 6);
+            this.btnPdfCreate.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnPdfCreate.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnPdfCreate.Name = "btnPdfCreate";
+            this.btnPdfCreate.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnPdfCreate.Size = new System.Drawing.Size(264, 23);
+            this.btnPdfCreate.TabIndex = 0;
+            this.btnPdfCreate.Text = "PDF Oluştur";
+            this.btnPdfCreate.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnPdfCreate.UseAccentColor = false;
+            this.btnPdfCreate.UseVisualStyleBackColor = true;
+            this.btnPdfCreate.Click += new System.EventHandler(this.btnPdfCreate_Click);
+            // 
+            // btnSendMail
+            // 
+            this.btnSendMail.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSendMail.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnSendMail.Depth = 0;
+            this.btnSendMail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSendMail.HighEmphasis = true;
+            this.btnSendMail.Icon = null;
+            this.btnSendMail.Location = new System.Drawing.Point(276, 6);
+            this.btnSendMail.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnSendMail.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnSendMail.Name = "btnSendMail";
+            this.btnSendMail.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnSendMail.Size = new System.Drawing.Size(264, 23);
+            this.btnSendMail.TabIndex = 1;
+            this.btnSendMail.Text = "Mail Gönder";
+            this.btnSendMail.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnSendMail.UseAccentColor = false;
+            this.btnSendMail.UseVisualStyleBackColor = true;
+            this.btnSendMail.Click += new System.EventHandler(this.btnSendMail_Click);
+            // 
             // tableLayoutPanel21
             // 
             this.tableLayoutPanel21.ColumnCount = 1;
@@ -1654,7 +1726,7 @@
             // 
             // panelDoctorThinks
             // 
-            this.panelDoctorThinks.Controls.Add(this.materialMultiLineTextBox1);
+            this.panelDoctorThinks.Controls.Add(this.txtNote);
             this.panelDoctorThinks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDoctorThinks.Location = new System.Drawing.Point(4, 46);
             this.panelDoctorThinks.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1662,21 +1734,21 @@
             this.panelDoctorThinks.Size = new System.Drawing.Size(795, 154);
             this.panelDoctorThinks.TabIndex = 1;
             // 
-            // materialMultiLineTextBox1
+            // txtNote
             // 
-            this.materialMultiLineTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialMultiLineTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.materialMultiLineTextBox1.Depth = 0;
-            this.materialMultiLineTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.materialMultiLineTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialMultiLineTextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialMultiLineTextBox1.Location = new System.Drawing.Point(0, 0);
-            this.materialMultiLineTextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.materialMultiLineTextBox1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialMultiLineTextBox1.Name = "materialMultiLineTextBox1";
-            this.materialMultiLineTextBox1.Size = new System.Drawing.Size(795, 154);
-            this.materialMultiLineTextBox1.TabIndex = 1;
-            this.materialMultiLineTextBox1.Text = "";
+            this.txtNote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtNote.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtNote.Depth = 0;
+            this.txtNote.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtNote.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtNote.Location = new System.Drawing.Point(0, 0);
+            this.txtNote.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtNote.MouseState = MaterialSkin.MouseState.HOVER;
+            this.txtNote.Name = "txtNote";
+            this.txtNote.Size = new System.Drawing.Size(795, 154);
+            this.txtNote.TabIndex = 1;
+            this.txtNote.Text = "";
             // 
             // materialListView3
             // 
@@ -2136,15 +2208,6 @@
             this.label17.TabIndex = 1;
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // formsPlot2
-            // 
-            this.formsPlot2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.formsPlot2.Location = new System.Drawing.Point(813, 6);
-            this.formsPlot2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.formsPlot2.Name = "formsPlot2";
-            this.formsPlot2.Size = new System.Drawing.Size(793, 368);
-            this.formsPlot2.TabIndex = 1;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -2195,6 +2258,8 @@
             this.tableLayoutPanel17.ResumeLayout(false);
             this.tableLayoutPanel20.ResumeLayout(false);
             this.tableLayoutPanel20.PerformLayout();
+            this.tableLayoutPanel28.ResumeLayout(false);
+            this.tableLayoutPanel28.PerformLayout();
             this.tableLayoutPanel21.ResumeLayout(false);
             this.panelDoctorThinks.ResumeLayout(false);
             this.tableLayoutPanel19.ResumeLayout(false);
@@ -2311,7 +2376,7 @@
         private ColumnHeader columnHeader11;
         private MaterialSkin.Controls.MaterialComboBox cmbAppointmentDoctor;
         private MaterialSkin.Controls.MaterialComboBox cmbAppointmentDisease;
-        private MaterialSkin.Controls.MaterialMultiLineTextBox materialMultiLineTextBox1;
+        private MaterialSkin.Controls.MaterialMultiLineTextBox txtNote;
         private TableLayoutPanel tableLayoutPanel25;
         private Label label26;
         private Label label27;
@@ -2347,5 +2412,8 @@
         private TableLayoutPanel tableLayoutPanel26;
         private TableLayoutPanel tableLayoutPanel27;
         private ScottPlot.FormsPlot formsPlot2;
+        private TableLayoutPanel tableLayoutPanel28;
+        private MaterialSkin.Controls.MaterialButton btnPdfCreate;
+        private MaterialSkin.Controls.MaterialButton btnSendMail;
     }
 }

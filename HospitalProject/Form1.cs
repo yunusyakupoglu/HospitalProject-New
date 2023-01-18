@@ -15,11 +15,14 @@ namespace HospitalProject
 {
     public partial class Form1 : MaterialForm
     {
+        private readonly IPdfService _pdfService;
+        private readonly IMailService _mailService;
         private readonly IDiseaseService _diseaseService;
         private readonly IPersonService _personService;
         private readonly IDiseaseDoctorService _diseaseDoctorService;
         private readonly IDiseasePatientService _diseasePatientService;
         private readonly IAppointmentService _appointmentService;
+        private readonly IAppointmentNoteService _appointmentNoteService;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IValidator<DiseaseCreateDto> _diseaseCreateValidator;
@@ -32,8 +35,35 @@ namespace HospitalProject
         private readonly IValidator<DiseasePatientUpdateDto> _diseasePatientUpdateValidator;
         private readonly IValidator<AppointmentCreateDto> _appointmentCreateValidator;
         private readonly IValidator<AppointmentUpdateDto> _appointmentUpdateValidator;
+        private readonly IValidator<AppointmentNoteCreateDto> _appointmentNoteCreateValidator;
+        private readonly IValidator<AppointmentNoteUpdateDto> _appointmentNoteUpdateValidator;
         private readonly IValidator<AppointmentIsCancelUpdateDto> _appointmentIsCancelUpdateValidator;
-        public Form1(IDiseaseService diseaseService, IMapper mapper, IUnitOfWork unitOfWork, IValidator<DiseaseCreateDto> diseaseCreateValidator, IValidator<DiseaseUpdateDto> diseaseUpdateValidator, IPersonService personService, IValidator<PersonCreateDto> personCreateValidator, IValidator<PersonUpdateDto> personUpdateValidator, IValidator<DiseaseDoctorCreateDto> diseaseDoctorCreateValidator, IDiseaseDoctorService diseaseDoctorService, IValidator<DiseaseDoctorUpdateDto> diseaseDoctorUpdateValidator, IValidator<DiseasePatientCreateDto> diseasePatientCreateValidator, IValidator<DiseasePatientUpdateDto> diseasePatientUpdateValidator, IDiseasePatientService diseasePatientService, IAppointmentService appointmentService, IValidator<AppointmentCreateDto> appointmentCreateValidator, IValidator<AppointmentUpdateDto> appointmentUpdateValidator, IValidator<AppointmentIsCancelUpdateDto> appointmentIsCancelUpdateValidator)
+        public int frm2Data;
+
+
+        public Form1(IDiseaseService diseaseService,
+            IMapper mapper,
+            IUnitOfWork unitOfWork,
+            IValidator<DiseaseCreateDto> diseaseCreateValidator,
+            IValidator<DiseaseUpdateDto> diseaseUpdateValidator,
+            IPersonService personService,
+            IValidator<PersonCreateDto> personCreateValidator,
+            IValidator<PersonUpdateDto> personUpdateValidator,
+            IValidator<DiseaseDoctorCreateDto> diseaseDoctorCreateValidator,
+            IDiseaseDoctorService diseaseDoctorService,
+            IValidator<DiseaseDoctorUpdateDto> diseaseDoctorUpdateValidator,
+            IValidator<DiseasePatientCreateDto> diseasePatientCreateValidator,
+            IValidator<DiseasePatientUpdateDto> diseasePatientUpdateValidator,
+            IDiseasePatientService diseasePatientService,
+            IAppointmentService appointmentService,
+            IValidator<AppointmentCreateDto> appointmentCreateValidator,
+            IValidator<AppointmentUpdateDto> appointmentUpdateValidator,
+            IValidator<AppointmentIsCancelUpdateDto> appointmentIsCancelUpdateValidator,
+            IValidator<AppointmentNoteCreateDto> appointmentNoteCreateValidator,
+            IValidator<AppointmentNoteUpdateDto> appointmentNoteUpdateValidator,
+            IAppointmentNoteService appointmentNoteService,
+            IMailService mailService,
+            IPdfService pdfService)
         {
             MaterialSkin.MaterialSkinManager skinManager;
             skinManager = MaterialSkinManager.Instance;
@@ -60,6 +90,11 @@ namespace HospitalProject
             _appointmentCreateValidator = appointmentCreateValidator;
             _appointmentUpdateValidator = appointmentUpdateValidator;
             _appointmentIsCancelUpdateValidator = appointmentIsCancelUpdateValidator;
+            _appointmentNoteCreateValidator = appointmentNoteCreateValidator;
+            _appointmentNoteUpdateValidator = appointmentNoteUpdateValidator;
+            _appointmentNoteService = appointmentNoteService;
+            _mailService = mailService;
+            _pdfService = pdfService;
         }
 
         protected async void Load_Graphics()
@@ -198,11 +233,23 @@ namespace HospitalProject
         #region Personel combobox
         public async void CmbPersonelTitleFill()
         {
+            //1 sekreter 2 doktor
             cmbPersonelTitle.Items.Clear();
-            var titleData = await _personService.GetPersonTitleAsync();
-            foreach (var item in titleData.Data)
+            if (frm2Data == 1)
             {
-                cmbPersonelTitle.Items.Add(item.PersonTitle);
+                var titleData = await _personService.GetPersonTitleAsync();
+                foreach (var item in titleData.Data)
+                {
+                    cmbPersonelTitle.Items.Add(item.PersonTitle);
+                }
+            }
+            else if (frm2Data == 2)
+            {
+                var titleData = await _personService.GetPersonTitleAsync();
+                foreach (var item in titleData.Data)
+                {
+                    cmbPersonelTitle.Items.Add(item.PersonTitle);
+                }
             }
         }
         public async void CmbDiseaseFill()
@@ -539,7 +586,7 @@ namespace HospitalProject
         }
         #endregion
         #region Appointment ListView
-        private void materialListView3_SelectedIndexChanged(object sender, EventArgs e)
+        private async void materialListView3_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (materialListView3.SelectedIndices.Count <= 0)
             {
@@ -548,7 +595,9 @@ namespace HospitalProject
             int intselectedindex = materialListView3.SelectedIndices[0];
             if (intselectedindex >= 0)
             {
-                int personId = Convert.ToInt32(materialListView3.Items[intselectedindex].SubItems[0].Text);
+                int appointmentId = Convert.ToInt32(materialListView3.Items[intselectedindex].SubItems[0].Text);
+                string note = await _appointmentNoteService.GetNoteByAppointmentId(appointmentId);
+                txtNote.Text = note;
                 lblAppointmentPatientNameSurname.Text = materialListView3.Items[intselectedindex].SubItems[1].Text;
                 lblAppointmentDoctorName.Text = materialListView3.Items[intselectedindex].SubItems[3].Text;
                 lblAppointmentDate.Text = materialListView3.Items[intselectedindex].SubItems[4].Text;
@@ -580,7 +629,7 @@ namespace HospitalProject
                 var response = await _diseaseService.CreateAsync(dto);
                 DiseaseListViewRefresh();
                 DiseaseCounter();
-                MessageBox.Show(response.Message);
+                MessageBox.Show($"{createDto.Name} hastalýk kaydetme iþlemi baþarýlý.");
             }
 
         }
@@ -828,9 +877,41 @@ namespace HospitalProject
 
         #endregion
 
-        private void materialButton3_Click(object sender, EventArgs e)
+        private async void materialButton3_Click(object sender, EventArgs e)
         {
+            AppointmentNoteCreateDto noteCreate = new AppointmentNoteCreateDto();
+            noteCreate.Note = txtNote.Text;
+            noteCreate.AppointmentId = Convert.ToInt32(materialListView3.SelectedItems[0].SubItems[0].Text);
+            noteCreate.Status = true;
+            var validationResult = _appointmentNoteCreateValidator.Validate(noteCreate);
+            if (validationResult.IsValid)
+            {
+                var dto = _mapper.Map<AppointmentNoteCreateDto>(noteCreate);
+                var response = await _appointmentNoteService.CreateAsync(dto);
+                DiseaseListViewRefresh();
+                DiseaseCounter();
+                MessageBox.Show("Not ekleme iþlemi baþarýlý.");
+            }
+        }
 
+        private async void btnSendMail_Click(object sender, EventArgs e)
+        {
+            var appointmentId = Convert.ToInt32(materialListView3.SelectedItems[0].SubItems[0].Text);
+            var emailAddress = await _appointmentService.GetPatientEmailAddressByAppointmentIdAsync(appointmentId);
+            await _mailService.SendAsync(lblAppointmentPatientNameSurname.Text,
+                lblAppointmentDoctorName.Text,
+                lblAppointmentDate.Text,
+                lblAppointmentTime.Text,
+                txtNote.Text, emailAddress);
+        }
+
+        private async void btnPdfCreate_Click(object sender, EventArgs e)
+        {
+            await _pdfService.GenerateAsync(lblAppointmentPatientNameSurname.Text,
+                lblAppointmentDoctorName.Text,
+                lblAppointmentDate.Text,
+                lblAppointmentTime.Text,
+                txtNote.Text);
         }
     }
 }

@@ -10,13 +10,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221230210420_seed")]
-    partial class seed
+    [Migration("20230116115811_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.13");
 
             modelBuilder.Entity("OL.Appointment", b =>
                 {
@@ -91,6 +91,32 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Diseases");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Kadın Hastalıkları",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Kulak Burun Boğaz",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Genel Cerrahi",
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Kalp ve Damar Cerrahisi",
+                            Status = true
+                        });
                 });
 
             modelBuilder.Entity("OL.DiseaseDoctor", b =>

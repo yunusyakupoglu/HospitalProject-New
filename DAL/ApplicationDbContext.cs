@@ -22,8 +22,7 @@ namespace DAL
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            optionsBuilder.UseSqlite($"Data Source={Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "project.db")}");
+            optionsBuilder.UseSqlite($"Data Source={Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "project.db;")}");
 
         }
 
@@ -33,6 +32,11 @@ namespace DAL
                 new Title { Id = 1, PersonTitle = "Sekreter", Status = true },
                 new Title { Id = 2, PersonTitle = "Doktor", Status = true },
                 new Title { Id = 3, PersonTitle = "Hasta", Status = true });
+            modelBuilder.Entity<Disease>().HasData(
+    new Disease { Id = 1, Name = "Kadın Hastalıkları", Status = true },
+    new Disease { Id = 2, Name = "Kulak Burun Boğaz", Status = true },
+    new Disease { Id = 3, Name= "Genel Cerrahi", Status = true },
+    new Disease { Id = 4, Name= "Kalp ve Damar Cerrahisi", Status = true });
         }
     }
 }

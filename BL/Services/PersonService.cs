@@ -82,6 +82,18 @@ namespace BL.Services
             return id;
         }
 
+        public async Task<int> Login(string firstName, string lastName)
+        {
+            int titleId = 0;
+            var data = await _unitOfWork.GetRepository<Person>().GetAllAsync(x => x.FirstName == firstName && x.LastName == lastName);
+            var dto = _mapper.Map<List<PersonListDto>>(data);
+            foreach (var item in dto)
+            {
+                titleId = item.PersonTitleId;
+            }
+            return titleId;
+        }
+
         public async Task<string> GetTitleById(int id)
         {
             var data = await _unitOfWork.GetRepository<Title>().GetAllAsync(x => x.Id == id);

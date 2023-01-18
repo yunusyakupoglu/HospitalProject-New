@@ -11,6 +11,7 @@ namespace BL.IServices
 {
     public interface IPersonService : IService<PersonCreateDto,PersonUpdateDto,PersonListDto,Person>
     {
+        Task<int> Login(string firstName, string lastName);
         Task<IResponse<List<TitleListDto>>> GetPersonTitleAsync();
         Task<IResponse<List<TitleListDto>>> GetPersonTitleByPersonTitleAsync(string personTitle);
         Task<int> GetTitleId(string personTitle);

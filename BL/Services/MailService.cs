@@ -19,16 +19,16 @@ namespace BL.Services
             try
             {
                 var message = new MimeMessage();
-                message.Bcc.Add(MailboxAddress.Parse(mailAdress));
-                message.From.Add(MailboxAddress.Parse("ranesyapi@outlook.com"));
+                message.To.Add(MailboxAddress.Parse(mailAdress));
+                message.From.Add(MailboxAddress.Parse("hastaneotomasyonu81@outlook.com"));
 
-                message.Subject = "Müşteri Talebi";
+                message.Subject = "Doktor Notu Talebi";
 
-                string messageBody = "<h3 style='color:red'>Hasta Adı Soyadı ..:</h3> <h4>" + patientNameSurname
-                    + "</h4><h3 style='color:red'>Doktor Adı ..:</h3> <h4>" + doctorName
-                    + "</h4><h3 style='color:red'>Randevu Tarihi ve Saati ..:</h3> <h4>" + appointmentDate + " " + appointmentTime
-                    + "</h4><h3 style='color:red'>Doktor Notu ..:</h3> <h4>"
-                    + note + "</h4>";
+                string messageBody = "<p>Hasta Adı Soyadı ..: " + patientNameSurname
+                    + "</p><p>Doktor Adı ..: " + doctorName
+                    + "</p><p>Randevu Tarihi ve Saati ..: " + appointmentDate + " " + appointmentTime
+                    + "</p><p>Doktor Notu ..:</p> <p>"
+                    + note + "</p>";
                 //We will say we are sending HTML. But there are options for plaintext etc. 
                 var builder = new BodyBuilder { HtmlBody = messageBody };
 
@@ -43,7 +43,7 @@ namespace BL.Services
                     //Remove any OAuth functionality as we won't be using it. 
                     emailClient.AuthenticationMechanisms.Remove("XOAUTH2");
 
-                    emailClient.Authenticate("ranesyapi@outlook.com", "Ranes6020");
+                    emailClient.Authenticate("hastaneotomasyonu81@outlook.com", "Hastane8181**");
 
                     emailClient.Send(message);
 
