@@ -913,5 +913,15 @@ namespace HospitalProject
                 lblAppointmentTime.Text,
                 txtNote.Text);
         }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Environment.Exit(0);
+        }
     }
 }
